@@ -718,11 +718,8 @@ document.addEventListener('DOMContentLoaded', function() {
             topText.style.display = topText.textContent ? 'block' : 'none';
             bottomText.style.display = bottomText.textContent ? 'block' : 'none';
 
-            // 预览图用于移动端长按保存：GIF 直接使用原图
-            if (savePreview && isMobile()) {
-                savePreview.src = currentImage;
-                savePreview.style.display = 'block';
-            } else if (savePreview) {
+            // 移动端不再额外显示第二张预览图，避免重复
+            if (savePreview) {
                 savePreview.style.display = 'none';
             }
             return;
@@ -742,15 +739,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 drawTextToCanvas(displayCanvasCtx, memeCanvas.width, memeCanvas.height);
             }
 
-            // 更新移动端长按保存预览
-            if (savePreview && isMobile()) {
-                try {
-                    savePreview.src = memeCanvas.toDataURL('image/png');
-                    savePreview.style.display = 'block';
-                } catch (e) {
-                    console.warn('生成预览失败', e);
-                }
-            } else if (savePreview) {
+            // 不再在移动端额外显示第二张预览图，避免重复
+            if (savePreview) {
                 savePreview.style.display = 'none';
             }
         };
